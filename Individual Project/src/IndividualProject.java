@@ -17,9 +17,7 @@ public class IndividualProject
 				setLocations();
 				setPeople();
 				greetUser();
-				while (play = true)
-					{
-				generateLocation();
+				generateLocationInitially();
 				if (places.get(0).getName().equals("France"))
 					{
 						generateChallengeInFrance();
@@ -37,9 +35,37 @@ public class IndividualProject
 					{
 						generateChallengeInRussia();
 					}
-					}
-			}
+				while (play)
+					{
+						if (player.getPoints() < 300) {
+							generateLocationAgain();
+							if (places.get(0).getName().equals("France"))
+								{
+									generateChallengeInFrance();
+								}
+							if (places.get(1).getName().equals("Brazil"))
+								{
+									generateChallengeInBrazil();
+								}
+							if (places.get(2).getName().equals("Egypt"))
+								{
+									generateChallengeInEgypt();
+								}
 
+							else
+								{
+									generateChallengeInRussia();
+								}
+						}
+						if(player.getPoints() >= 300)
+							{
+								play = false;
+							}
+					}
+				System.out.println();
+				System.out.println();
+				System.out.println("Congratulations! You win! Your total amount of points you earned is " + player.getPoints() + "!");
+			}
 		public static void setLocations()
 			{
 				places.add(new Location("France", 50));
@@ -47,7 +73,6 @@ public class IndividualProject
 				places.add(new Location("Egypt", 150));
 				places.add(new Location("Russia", 200));
 			}
-
 		public static void setPeople()
 			{
 				people.add(new Character("Mary", "Loves adventure, Athlectic, & Speaks many languages",
@@ -58,7 +83,6 @@ public class IndividualProject
 				people.add(new Character("Maxim", "Great navigator & Fast",
 						"Bad communication skills & Gives up easliy", 0));
 			}
-
 		public static void greetUser()
 			{
 				int counter = 1;
@@ -87,15 +111,19 @@ public class IndividualProject
 				System.out.println("Press enter to continue in this game and generate your travel destination. . .");
 				String space = userStringInput.nextLine();
 			}
-
-		public static void generateLocation()
+		public static void generateLocationInitially()
 			{
 				int randomPlaceNumber = (int) (Math.random() * places.size());
 				destination = places.get(randomPlaceNumber);
 				System.out.println("Congralutions! You are going to " + destination.getName() + "!");
 
 			}
-
+		public static void generateLocationAgain()
+		{
+			int randomPlaceNumber = (int) (Math.random() * places.size());
+			destination = places.get(randomPlaceNumber);
+			System.out.println("Congralutions! You are now being sent to " + destination.getName() + "!");
+		}
 		public static void generateChallengeInFrance()
 			{
 				String space = userStringInput.nextLine();
@@ -106,7 +134,7 @@ public class IndividualProject
 				System.out.println(
 						"Your challenge is to make your way through the maze and to earn bonus points while you travel through the maze remember these numbers: 1-2-8-1-8-8-7");
 				int bonusNumber = 1281887;
-				System.out.println("Press enter to begin maze!");
+				System.out.println("Press enter to begin the maze!");
 				String spaceBegin = userStringInput.nextLine();
 				System.out.println(
 						"To navigate through the maze press R for right and L for left. What is your first move?");
@@ -114,14 +142,14 @@ public class IndividualProject
 				if (playerMove.toUpperCase().equals("R"))
 					{
 						System.out.println(
-								"You run for while through the maze until you hit a fork in the path, which way next?");
+								"You run for awhile through the maze until you hit a fork in the path, which way next?");
 						String playerMoveOne = userStringInput.nextLine();
 						if (playerMoveOne.toUpperCase().equals("R"))
 							{
 								System.out.println(
 										"As you turn the corner, you hear the sound of skulls falling off the walls onto the ground behind you...");
 								System.out.println(
-										"You don't worry it about it though because this is a game show and the producers would never put you into danger... Right? or Left?");
+										"You don't worry it about it though because this is a game show, and the producers would never put you into danger... Right? or Left?");
 								String playerMoveTwo = userStringInput.nextLine();
 								if (playerMoveTwo.toUpperCase().equals("R"))
 									{
@@ -134,7 +162,7 @@ public class IndividualProject
 														"You followed see the cross on the back wall, but you are now in a squared shaped room...");
 												System.out.println();
 												System.out.println(
-														"A trap door quickly slams shuts behind you and you are trapped in the room! Game over!");
+														"A trap door quickly slams shut behind you and you are trapped in the room! Game over!");
 												pointCounter = +20;
 												System.out.println(
 														"Do you remember the number from the beginning? If so, type it in now to gain extra points!");
@@ -144,13 +172,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 										if (playerMoveThree.toUpperCase().equals("L"))
@@ -163,22 +191,22 @@ public class IndividualProject
 												System.out.println("Press enter to continue. . .");
 												String pause = userStringInput.nextLine();
 												System.out.println("Congrats! You made it out of the catacombs!!");
-												pointCounter = +40;
+												pointCounter = +300;
 												System.out.println(
-														"Do you remember the numbers from before? If so, type them in now to earn bonus points");
+														"Do you remember the numbers from before? If so, type them in now to earn bonus points!");
 												int bonusPoints = userIntInput.nextInt();
 												if (bonusPoints == bonusNumber)
 													{
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 									}
@@ -205,13 +233,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 										if (playerMoveFour.toUpperCase().equals("R"))
@@ -231,13 +259,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 									}
@@ -272,13 +300,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 										if (playerMoveSix.toUpperCase().equals("R"))
@@ -296,13 +324,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 									}
@@ -327,13 +355,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints()+ "!");
 													}
 											}
 										if (playerMoveSeven.toUpperCase().equals("L"))
@@ -353,13 +381,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 									}
@@ -400,13 +428,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 										if (playerMoveTen.toUpperCase().equals("L"))
@@ -428,13 +456,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 									}
@@ -461,13 +489,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 										if (playerMoveEleven.toUpperCase().equals("R"))
@@ -487,13 +515,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 									}
@@ -528,13 +556,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 										if (playerMoveThirteen.toUpperCase().equals("R"))
@@ -552,13 +580,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 									}
@@ -583,13 +611,13 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 										if (playerMoveFourteen.toUpperCase().equals("L"))
@@ -609,33 +637,29 @@ public class IndividualProject
 														player.setPoints(pointCounter + 10);
 														System.out.println(
 																"You are correct you get 10 extra bonus points! Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													} else
 													{
 														player.setPoints(pointCounter);
 														System.out.println(
 																"Sorry, you are incorrect. Your new point total is "
-																		+ player.getPoints());
+																		+ player.getPoints() + "!");
 													}
 											}
 									}
 							}
 					}
 			}
-
 		public static void generateChallengeInEgypt()
 			{
 
 			}
-
 		public static void generateChallengeInBrazil()
 			{
 
 			}
-
 		public static void generateChallengeInRussia()
 			{
 
 			}
-
 	}
